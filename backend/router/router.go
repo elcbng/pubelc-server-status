@@ -1,4 +1,4 @@
-package route
+package router
 
 import (
 	"fmt"
@@ -42,17 +42,18 @@ func (m *Mux) add(mode string, path string, fun http.HandlerFunc) {
 		m.handlers[strings.ToLower(mode)],
 		h,
 	)
-	fmt.Println("m.handlers", m.handlers[strings.ToLower(mode)])
+
+	//fmt.Println("m.handlers", m.handlers[strings.ToLower(mode)])
 }
 
 func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	url := strings.Split(strings.TrimLeft(r.URL.Path, "/"), "/")
+
 	//debug output
 	fmt.Println("r", fmt.Sprintf("%+v", r))
 	fmt.Println("w", fmt.Sprintf("%+v", w))
 
 	for _, handler := range m.handlers[strings.ToLower(r.Method)] {
-		if handler.path == "/"+strings.ToLower(url[0]) {
+		if handler.path == strings.ToLower(r.URL.Path) {
 			handler.ServeHTTP(w, r)
 			return
 		}
