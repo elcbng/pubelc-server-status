@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"gostat/config"
 	"log"
 	"net/http"
 	"strings"
@@ -34,9 +35,13 @@ func (m *Mux) AddRoute(mode string, path string, fun http.HandlerFunc) {
 func (m *Mux) add(mode string, path string, fun http.HandlerFunc) {
 	h := &Handler{strings.ToLower(path), fun}
 	//debug output
-	fmt.Println("h ::", &h)
-	fmt.Println("strings.ToLower(path) ::", strings.ToLower(path))
-	fmt.Println("strings.ToLower(mode) ::", strings.ToLower(mode))
+	if c := config.GetDebug(); c != 0 {
+		if c == 2 {
+			fmt.Println("h ::", &h)
+		}
+		fmt.Println("strings.ToLower(path) ::", strings.ToLower(path))
+		fmt.Println("strings.ToLower(mode) ::", strings.ToLower(mode), "\n")
+	}
 	//core
 	m.handlers[strings.ToLower(mode)] = append(
 		m.handlers[strings.ToLower(mode)],
@@ -49,8 +54,10 @@ func (m *Mux) add(mode string, path string, fun http.HandlerFunc) {
 func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	//debug output
-	fmt.Println("r", fmt.Sprintf("%+v", r))
-	fmt.Println("w", fmt.Sprintf("%+v", w))
+	if config.GetDebug() == 2 {
+		fmt.Println("r", fmt.Sprintf("%+v", r))
+		fmt.Println("w", fmt.Sprintf("%+v", w))
+	}
 
 	for _, handler := range m.handlers[strings.ToLower(r.Method)] {
 		if handler.path == strings.ToLower(r.URL.Path) {
@@ -59,5 +66,4 @@ func (m *Mux) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	http.NotFound(w, r)
-	return
 }
