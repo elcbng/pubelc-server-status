@@ -1,1 +1,15 @@
-{"User":310399,"Nice":2876,"System":116802,"Idle":1198583,"Iowait":66437,"Irq":0,"Softirq":9525,"Steal":0,"Guest":0,"GuestNice":0,"Total":1704622,"CPUCount":4,"StatCount":10}
+{
+    "User": 310399,
+    "Nice": 2876,
+    "System": 116802,
+    "Idle": 1198583,
+    "Iowait": 66437,
+    "Irq": 0,
+    "Softirq": 9525,
+    "Steal": 0,
+    "Guest": 0,
+    "GuestNice": 0,
+    "Total": 1704622,
+    "CPUCount": 4,
+    "StatCount": 10
+}
