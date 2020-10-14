@@ -5,7 +5,6 @@ import (
 	"gostat/config"
 	"gostat/router"
 	"gostat/stat"
-	"log"
 	"net/http"
 )
 
@@ -49,6 +48,6 @@ func main() {
 	})
 
 	if err := http.ListenAndServe(":"+config.GetPort(), r); err != nil {
-		log.Fatal("open HTTP server error")
+		fmt.Println("open HTTP server error")
 	}
 }
