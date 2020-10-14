@@ -1,0 +1,27 @@
+[
+    {
+        "Name": "vetharc0",
+        "RxBytes": 26457823,
+        "TxBytes": 11015872
+    },
+    {
+        "Name": "vethwlan0",
+        "RxBytes": 20358849,
+        "TxBytes": 37612479
+    },
+    {
+        "Name": "arc_wlan0",
+        "RxBytes": 18482065,
+        "TxBytes": 37612007
+    },
+    {
+        "Name": "arcbr0",
+        "RxBytes": 25727325,
+        "TxBytes": 11015400
+    },
+    {
+        "Name": "wlan0",
+        "RxBytes": 37972579,
+        "TxBytes": 24851409
+    }
+]

@@ -1,0 +1,15 @@
+{
+    "Total": 8195182592,
+    "Used": 4293804032,
+    "Buffers": 505896960,
+    "Cached": 4317614080,
+    "Free": 353488896,
+    "Available": 3901378560,
+    "Active": 3474960384,
+    "Inactive": 3118407680,
+    "SwapTotal": 12004659200,
+    "SwapUsed": 6553600,
+    "SwapCached": 0,
+    "SwapFree": 11998105600,
+    "MemAvailableEnabled": true
+}
