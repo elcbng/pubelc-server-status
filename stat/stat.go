@@ -13,69 +13,62 @@ import (
 	"github.com/mackerelio/go-osstat/uptime"
 )
 
-func CatMemory() interface{} {
-	read, err := memory.Get()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
+var read interface{}
+var err error
+
+func Catter(target string) []byte {
+	switch target {
+	case "memory":
+		read, err = memory.Get()
+		Er(err)
+	case "cpu":
+		read, err = cpu.Get()
+		Er(err)
+	case "disk":
+		read, err = disk.Get()
+		Er(err)
+	case "uptime":
+		read, err = uptime.Get()
+		Er(err)
+	case "network":
+		read, err = network.Get()
+		Er(err)
+	case "load":
+		read, err = loadavg.Get()
+		Er(err)
 	}
-	return read
+	dat := RetJSON(read)
+	return dat
 }
 
-func CatCPU() interface{} {
-	read, err := cpu.Get()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-	}
-	return read
-}
-
-func CatDisk() interface{} {
-	read, err := disk.Get()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-	}
-	return read
-}
-
-func CatUptime() interface{} {
-	read, err := uptime.Get()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-	}
-	return read
-}
-
-func CatNetwork() interface{} {
-	read, err := network.Get()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-	}
-	return read
-}
-
-func CatLoad() interface{} {
-	read, err := loadavg.Get()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-	}
-	return read
-}
-
-func CatAll() interface{} {
+func CatAll() []byte {
 	var aio = make(map[string]interface{})
-	aio["cpu"] = CatCPU()
-	aio["mem"] = CatMemory()
-	aio["disk"] = CatDisk()
-	aio["uptime"] = CatUptime()
-	aio["load"] = CatLoad()
-	aio["network"] = CatNetwork()
-	return aio
+	aio["cpu"], err = cpu.Get()
+	Er(err)
+	aio["mem"], err = memory.Get()
+	Er(err)
+	aio["disk"], err = disk.Get()
+	Er(err)
+	aio["uptime"], err = uptime.Get()
+	Er(err)
+	aio["load"], err = network.Get()
+	Er(err)
+	aio["network"], err = loadavg.Get()
+	Er(err)
+	dat := RetJSON(aio)
+	return dat
 }
 
 func RetJSON(in interface{}) []byte {
-	json, err := json.Marshal(in)
+	re, err := json.Marshal(in)
 	if err != nil {
 		fmt.Printf("Error: %s", err)
 	}
-	return json
+	return re
+}
+
+func Er(err error) {
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "%s\n", err)
+	}
 }

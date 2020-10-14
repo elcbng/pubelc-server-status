@@ -41,7 +41,7 @@ func (m *Mux) add(mode string, path string, fun http.HandlerFunc) {
 			fmt.Println("h ::", &h)
 		}
 		fmt.Printf("\033[1;36m%s", "[Info] : ")
-		fmt.Printf("%-32s%-32s", " Path ::"+strings.ToLower(path), " Mode ::"+strings.ToLower(mode))
+		fmt.Printf("%-32s%-32s", " Path :: "+strings.ToLower(path), " Mode :: "+strings.ToLower(mode))
 		fmt.Println()
 	}
 	//core
