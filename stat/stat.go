@@ -62,8 +62,7 @@ func CatLoad() interface{} {
 }
 
 func CatAll() interface{} {
-	var aio map[string]interface{}
-	aio = make(map[string]interface{})
+	var aio = make(map[string]interface{})
 	aio["cpu"] = CatCPU()
 	aio["mem"] = CatMemory()
 	aio["disk"] = CatDisk()

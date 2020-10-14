@@ -16,6 +16,9 @@ type ConfigStruct struct {
 var conf ConfigStruct
 
 func init() {
+	hello()
+	fmt.Printf("\033[1;34m%s", "Initializing\n\n")
+	fmt.Println("Reading Config.json :")
 	data, err := ioutil.ReadFile("config.json")
 	if err != nil {
 		fmt.Println(err)
@@ -26,7 +29,13 @@ func init() {
 	}
 	fmt.Println("Listen port :", conf.Port)
 	fmt.Println("Debug flag :", conf.Debug)
-	fmt.Println("Preset pass :", conf.Passwd, "\n")
+	fmt.Println("Preset pass :", conf.Passwd)
+	fmt.Println("\nInit finished !")
+	fmt.Println()
+}
+
+func hello() {
+	fmt.Printf("\033[1;31m%s", "===Wel Cum 2 Gostat!===\n")
 }
 
 func GetDebug() (r int) {
