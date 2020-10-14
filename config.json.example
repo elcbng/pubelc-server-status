@@ -1,5 +1,5 @@
 {
-    "url": "/status",
+    "url": "/v1",
     "port": 8080,
     "debug": 1,
     "passwd": "65442889"
