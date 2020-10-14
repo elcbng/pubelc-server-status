@@ -11,6 +11,7 @@ type ConfigStruct struct {
 	Debug  int
 	Port   int
 	Passwd string
+	URL    string
 }
 
 var conf ConfigStruct
@@ -27,7 +28,9 @@ func init() {
 	if err != nil {
 		fmt.Println(err)
 	}
+
 	fmt.Println("Listen port :", conf.Port)
+	fmt.Println("Listen URL :", conf.URL)
 	fmt.Println("Debug flag :", conf.Debug)
 	fmt.Println("Preset pass :", conf.Passwd)
 	fmt.Println("\nInit finished !")
@@ -45,4 +48,8 @@ func GetDebug() (r int) {
 func GetPort() string {
 	r := strconv.Itoa(conf.Port)
 	return r
+}
+
+func GetURL() string {
+	return conf.URL
 }
