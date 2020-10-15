@@ -11,7 +11,3 @@ Based on github.com/mackerelio/go-osstat
 * router - router Utilities
 * main.go - EntryPoint & router
 * stat - go-osstat sth.
-
-## cstat
-
-## webstat
