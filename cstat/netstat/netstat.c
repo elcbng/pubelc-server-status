@@ -4,6 +4,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+char **array;
+char *netres;
+
 int line() {
     FILE *fp = fopen("/proc/net/dev", "r");
     int ch = 0, lines = 0;
@@ -17,6 +20,17 @@ int line() {
     return lines;
 }
 
+int arrLen;
+
+void init() {
+    arrLen = line() - 2;
+    array = (char**)malloc(arrLen*sizeof(int*));
+    for(int i = 0; i < arrLen; i++){  
+        array[i]=(char*)malloc(200*sizeof(int));  
+    }
+    netres = (char*)malloc(200*arrLen*sizeof(int));
+}
+
 void netstat() {
     FILE *fp = fopen("/proc/net/dev", "r");
     char buf[200], ifname[20];
@@ -25,13 +39,6 @@ void netstat() {
     // skip first two lines
     for (int i = 0; i < 2; i++) {
         fgets(buf, 200, fp);
-    }
-
-    char **array;
-    int arrLen = line() - 2;
-    array = (char**)malloc(arrLen*sizeof(int*));
-    for(int i = 0; i < arrLen; i++){  
-        array[i]=(char*)malloc(200*sizeof(int));  
     }
 
     int l = 0;
@@ -48,8 +55,6 @@ void netstat() {
         l++;
     }
     
-    char *netres;
-    netres = (char*)malloc(200*arrLen*sizeof(int));
     for (int i = 0; i < arrLen; i++) {
         if (i == 0) {
             strcpy(netres, "{");
