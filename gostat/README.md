@@ -1,9 +1,13 @@
-# gostat
+# pubelc-server-status
+
+<br>
+
+## gostat
 Based on github.com/mackerelio/go-osstat
 
 ### Structure
-* app
-  * os - OS related Utilities
-* doc - documents & definations
+* config - config util
+* docs - documents & definations
 * router - router Utilities
 * main.go - EntryPoint & router
+* stat - go-osstat sth.

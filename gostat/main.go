@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"gostat/config"
 	"gostat/router"
 	"gostat/stat"
@@ -9,30 +10,45 @@ import (
 
 func main() {
 	r := router.NewMuxer()
-	r.AddRoute("GET", "/v1", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Whoa there!"))
+	URL := config.GetURL()
+	r.AddRoute("GET", URL+"/raw"+"/mem", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write(stat.Catter("mem")); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
-	r.AddRoute("GET", "/v1/status/mem", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatMemory()))
+	r.AddRoute("GET", URL+"/raw"+"/cpu", func(w http.ResponseWriter, r *http.Request) {
+
+		if _, err := w.Write(stat.Catter("cpu")); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
-	r.AddRoute("GET", "/v1/status/cpu", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatCPU()))
+	r.AddRoute("GET", URL+"/raw"+"/disk", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write(stat.Catter("disk")); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
-	r.AddRoute("GET", "/v1/status/disk", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatDisk()))
+	r.AddRoute("GET", URL+"/raw"+"/uptime", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write(stat.Catter("uptime")); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
-	r.AddRoute("GET", "/v1/status/uptime", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatUptime()))
+	r.AddRoute("GET", URL+"/raw"+"/load", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write(stat.Catter("load")); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
-	r.AddRoute("GET", "/v1/status/load", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatLoad()))
+	r.AddRoute("GET", URL+"/raw"+"/network", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write(stat.Catter("network")); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
-	r.AddRoute("GET", "/v1/status/network", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatNetwork()))
-	})
-	r.AddRoute("GET", "/v1/status/all", func(w http.ResponseWriter, r *http.Request) {
-		w.Write(stat.RetJSON(stat.CatAll()))
+	r.AddRoute("GET", URL+"/raw"+"/all", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write(stat.CatAll()); err != nil {
+			fmt.Println("Http write failed:", err)
+		}
 	})
 
-	http.ListenAndServe(":"+config.GetPort(), r)
+	if err := http.ListenAndServe(":"+config.GetPort(), r); err != nil {
+		fmt.Println("open HTTP server error")
+	}
 }

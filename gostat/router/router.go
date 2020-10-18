@@ -37,10 +37,12 @@ func (m *Mux) add(mode string, path string, fun http.HandlerFunc) {
 	//debug output
 	if c := config.GetDebug(); c != 0 {
 		if c == 2 {
+			fmt.Printf("\033[0;36m%s", "[Debug] :\t")
 			fmt.Println("h ::", &h)
 		}
-		fmt.Println("strings.ToLower(path) ::", strings.ToLower(path))
-		fmt.Println("strings.ToLower(mode) ::", strings.ToLower(mode), "\n")
+		fmt.Printf("\033[1;36m%s", "[Info] : ")
+		fmt.Printf("%-32s%-32s", " Path :: "+strings.ToLower(path), " Mode :: "+strings.ToLower(mode))
+		fmt.Println()
 	}
 	//core
 	m.handlers[strings.ToLower(mode)] = append(
