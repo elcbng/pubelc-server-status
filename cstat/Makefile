@@ -1,11 +1,10 @@
-CC = gcc
+CC = clang -std=c11
 OBJ := main.o httpd.o netstat.o load.o
 TOP_DIR := $(PWD)
 OBJ_DIR := $(TOP_DIR)/obj
 BIN_DIR := $(TOP_DIR)/bin
 BIN := cstat
-SUB_DIR := libjson \
-			httpd \
+SUB_DIR := httpd \
 			netstat \
 			load
 
