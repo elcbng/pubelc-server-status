@@ -1,3 +1,3 @@
 .vscode
-gostat
+gostat-*
 config.json

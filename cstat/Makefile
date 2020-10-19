@@ -1,20 +1,32 @@
-all: cstat
+CC = clang -std=c11
+OBJ := main.o httpd.o netstat.o load.o
+TOP_DIR := $(PWD)
+OBJ_DIR := $(TOP_DIR)/obj
+BIN_DIR := $(TOP_DIR)/bin
+BIN := cstat
+SUB_DIR := httpd \
+			netstat \
+			load
+
+export CC OBJ TOP_DIR OBJ_DIR BIN_DIR BIN SUB_DIR
+
+all: CHECKDIR main.o $(SUB_DIR) cstat
+
+CHECKDIR: 
+	mkdir -p $(OBJ_DIR) $(BIN_DIR)
+
+$(SUB_DIR):ECHO
+	make -C $@
+
+cstat:
+	make -C obj
+
+ECHO:
+	@echo $(SUB_DIR)
+	@echo begin compile
 
 clean:
-	@rm -rf *.o
-	@rm -rf cstat
-
-cstat: main.o httpd.o netstat.o load.o
-	gcc -o cstat $^
+	@rm -rf $(OBJ_DIR)/*.o $(BIN_DIR)
 
 main.o: main.c
-	gcc -c -o main.o main.c
-
-httpd.o: httpd/httpd.c httpd/httpd.h
-	gcc -c -o httpd.o httpd/httpd.c
-
-netstat.o : netstat/netstat.c netstat/netstat.h
-	gcc -c -o netstat.o netstat/netstat.c
-
-load.o : load/load.c load/load.h
-	gcc -c -o load.o load/load.c
+	$(CC) -c -o $(OBJ_DIR)/main.o main.c

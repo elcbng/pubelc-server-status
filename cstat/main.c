@@ -4,6 +4,7 @@
 
 int main(int c, char** v)
 {
+    init();
     serve_forever("8080");
     return 0;
 }
