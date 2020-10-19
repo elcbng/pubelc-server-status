@@ -1,0 +1,16 @@
+title: 
+email: 
+description: 
+baseurl: ""
+url: ""
+
+# Build settings
+#theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-archives
+
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
